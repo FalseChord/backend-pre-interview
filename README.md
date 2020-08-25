@@ -11,12 +11,13 @@ Step 2 - Find the sum of the first three numbers in the top row (from the left).
 Step 3 - Find this sum for each of the 50 puzzles
 
 
-### Execution
+## Execution
 
 The code layout is eazy. So after pull the repo, simply execute to code with below command.
 
 ```go run *.go```
 
+The results will be printed to stdout.
 
 ## Authors
 
