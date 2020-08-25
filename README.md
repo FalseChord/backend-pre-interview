@@ -13,7 +13,7 @@ Step 3 - Find this sum for each of the 50 puzzles
 
 ## Execution
 
-The code layout is eazy. So after pull the repo, simply execute to code with below command.
+The code layout is easy. So after pull the repo, simply execute to code with below command.
 
 ```go run *.go```
 

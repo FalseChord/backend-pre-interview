@@ -12,8 +12,8 @@ type Grid struct {
 }
 
 // Init initial the grid with a 9x9 sequence of numbers.
-func (g *Grid) Init(rawNumberes [9][9]int) {
-	for rowIndex, row := range rawNumberes {
+func (g *Grid) Init(rawNumbers [9][9]int) {
+	for rowIndex, row := range rawNumbers {
 		for columnIndex, rawNumber := range row {
 			regionIndex := columnIndex/3 + (rowIndex/3)*3
 			regionPosition := columnIndex%3 + (rowIndex%3)*3
@@ -84,7 +84,7 @@ func (g *Grid) Print() {
 	fmt.Println("")
 }
 
-// PrintStatus shows the currnet status and candidates for each cell in the grid.
+// PrintStatus shows the current status and candidates for each cell in the grid.
 func (g *Grid) PrintStatus() {
 	for _, r := range g.Rows {
 		fmt.Println("")
@@ -104,18 +104,18 @@ func (g *Grid) getAllCellGroups() []CellGroup {
 
 // Verify checks whether the grid is complete, not complete or malformed.
 func (g *Grid) Verify() string {
-	isFullfilled := true
+	isFulfilled := true
 	for _, row := range g.Rows {
 		for _, cell := range row {
 			if !cell.Confirmed {
-				isFullfilled = false
+				isFulfilled = false
 				if len(cell.Candidates) == 0 {
 					return GridStatusMalformed
 				}
 			}
 		}
 	}
-	if !isFullfilled {
+	if !isFulfilled {
 		return GridStatusNotCompleted
 	}
 	for _, cellGroup := range g.getAllCellGroups() {
@@ -127,7 +127,7 @@ func (g *Grid) Verify() string {
 }
 
 // GetBranchCellIndex determined which cell to start to traversal remaining possible solutions.
-// The logic is pick the cell with least candidates left for less quessing and calculation time.
+// The logic is pick the cell with least candidates left for less guessing and calculation time.
 func (g *Grid) GetBranchCellIndex() (rowIndex int, cellIndex int) {
 	var candidateLength int
 	for rindex, row := range g.Rows {
@@ -149,17 +149,17 @@ func (g *Grid) GetBranchCellIndex() (rowIndex int, cellIndex int) {
 
 // ToRawNumberGrid transform the grid to 9x9 sequential numbers, for grid duplication.
 func (g *Grid) ToRawNumberGrid() [9][9]int {
-	var rawNumbereGrid [9][9]int
+	var rawNumberGrid [9][9]int
 	for rowIndex, row := range g.Rows {
 		for cellIndex, cell := range row {
-			rawNumbereGrid[rowIndex][cellIndex] = cell.Number
+			rawNumberGrid[rowIndex][cellIndex] = cell.Number
 		}
 	}
-	return rawNumbereGrid
+	return rawNumberGrid
 }
 
 // CellGroup is abstraction of a set of numbers in a Sudoku game.
-// The number of cells in the same CellGroup should be disdinct.
+// The number of cells in the same CellGroup should be distinct.
 type CellGroup [9]*Cell
 
 // TrimCandidate eliminates candidates from cells which do not confirm it's number in the CellGroup.
@@ -227,7 +227,7 @@ type Cell struct {
 	Region     *CellGroup
 }
 
-// Mark marks the status of the cell to confirmed(the answer is comfirmed).
+// Mark marks the status of the cell to confirmed(the answer is confirmed).
 // Mark also triggers candidate elimination to the CellGroups it belongs.
 func (c *Cell) Mark(answer int) {
 	c.Confirmed = true
